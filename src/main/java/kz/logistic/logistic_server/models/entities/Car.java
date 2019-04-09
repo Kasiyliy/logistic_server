@@ -4,6 +4,7 @@ import kz.logistic.logistic_server.models.audits.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Entity
 @Table(name = "cars")
+@ToString
 public class Car extends AuditModel {
 
     @Column(unique = true,name = "plate_number")
