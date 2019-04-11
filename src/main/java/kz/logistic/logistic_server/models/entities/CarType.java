@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "car_types")
 @NoArgsConstructor
 @Data
-public class CarType extends AuditModel{
+public class CarType extends AuditModel {
 
     @Column(name="name")
     @NotNull(message = "name is required")

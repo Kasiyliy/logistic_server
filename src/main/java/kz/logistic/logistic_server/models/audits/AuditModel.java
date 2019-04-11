@@ -1,6 +1,7 @@
 package kz.logistic.logistic_server.models.audits;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,5 +31,19 @@ public abstract class AuditModel implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_at")
-    private Date deletedAt;
+    private Date deletedAt = new Date();
+
+
+    @PrePersist
+    private void prePersist() {
+        if(this.createdAt == null){
+            this.createdAt = new Date();
+        }
+        this.updatedAt = new Date();
+    }
+
+    @PreUpdate
+    private void preUpdate(){
+        this.updatedAt = new Date();
+    }
 }
