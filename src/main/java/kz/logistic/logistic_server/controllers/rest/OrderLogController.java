@@ -12,11 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
 @RestController
 @RequestMapping("/api/order/logs")
 public class OrderLogController extends BaseController{

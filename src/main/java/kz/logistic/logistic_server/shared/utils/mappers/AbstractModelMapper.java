@@ -4,11 +4,6 @@ import kz.logistic.logistic_server.models.audits.AuditModel;
 
 import java.util.List;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
 public abstract class AbstractModelMapper<E extends AuditModel,D> {
 
     public abstract D toDto (E e);

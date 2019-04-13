@@ -6,11 +6,7 @@ import kz.logistic.logistic_server.models.entities.User;
 
 import java.util.List;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
+
 public interface OrderService {
 
     Order findById(Long id) throws ServiceException;

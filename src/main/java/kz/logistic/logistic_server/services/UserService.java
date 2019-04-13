@@ -7,11 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
 public interface UserService extends UserDetailsService {
 
     User findById(Long id) throws ServiceException;

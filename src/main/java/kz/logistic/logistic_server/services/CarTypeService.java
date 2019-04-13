@@ -5,11 +5,7 @@ import kz.logistic.logistic_server.models.entities.CarType;
 
 import java.util.List;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
+
 public interface CarTypeService {
 
     CarType findById(Long id) throws ServiceException;

@@ -8,11 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
 @Data
 @Builder
 @NoArgsConstructor

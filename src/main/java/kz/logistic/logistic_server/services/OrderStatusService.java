@@ -5,11 +5,7 @@ import kz.logistic.logistic_server.models.entities.OrderStatus;
 
 import java.util.List;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
+
 public interface OrderStatusService {
 
     OrderStatus findById(Long id) throws ServiceException;

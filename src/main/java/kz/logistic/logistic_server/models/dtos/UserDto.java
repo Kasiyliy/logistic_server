@@ -5,11 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Assylkhan
- * on 11.04.2019
- * @project logistic_server
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

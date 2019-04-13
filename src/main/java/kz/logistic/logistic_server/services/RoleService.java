@@ -5,11 +5,7 @@ import kz.logistic.logistic_server.models.entities.Role;
 
 import java.util.List;
 
-/**
- * @author Assylkhan
- * on 10.04.2019
- * @project logistic_server
- */
+
 public interface RoleService {
 
     Role findById(Long id) throws ServiceException;
