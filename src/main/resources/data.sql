@@ -7,3 +7,7 @@ INSERT INTO logistic_manager.order_statuses (id, created_at, deleted_at, updated
 INSERT INTO logistic_manager.order_statuses (id, created_at, deleted_at, updated_at, name) VALUES (2, '2019-04-06 20:14:23', null, '2019-04-06 20:14:22', 'CANCELED');
 INSERT INTO logistic_manager.order_statuses (id, created_at, deleted_at, updated_at, name) VALUES (3, '2019-04-06 20:14:52', null, '2019-04-06 20:14:53', 'IN_PROCESS');
 INSERT INTO logistic_manager.order_statuses (id, created_at, deleted_at, updated_at, name) VALUES (4, '2019-04-06 20:15:24', null, '2019-04-06 20:15:25', 'UNDER_CONSIDERATION');
+
+INSERT INTO logistic_manager.car_types (id, created_at, deleted_at, updated_at, name) VALUES (1, '2019-04-13 17:49:33', null, '2019-04-13 17:49:33', 'TRACK');
+INSERT INTO logistic_manager.car_types (id, created_at, deleted_at, updated_at, name) VALUES (2, '2019-04-13 17:49:33', null, '2019-04-13 17:49:33', 'CAR');
+INSERT INTO logistic_manager.car_types (id, created_at, deleted_at, updated_at, name) VALUES (3, '2019-04-13 17:49:33', null, '2019-04-13 17:49:33', 'MINIVAN');

@@ -28,9 +28,13 @@ public class User extends AuditModel {
     @NotNull(message = "last_name is required")
     private String lastName;
 
-    @Column(unique = true, name = "phone_number")
+    @Column(name = "phone_number")
     @NotNull(message = "phone_number is required")
     private String phoneNumber;
+
+    @Column(unique = true, name = "login")
+    @NotNull(message = "login is required")
+    private String login;
 
     @NotNull(message = "password is required")
     private String password;

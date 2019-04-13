@@ -2,13 +2,9 @@ package kz.logistic.logistic_server.controllers.rest;
 
 import kz.logistic.logistic_server.controllers.BaseController;
 import kz.logistic.logistic_server.exceptions.ServiceException;
-import kz.logistic.logistic_server.models.dtos.CarDto;
 import kz.logistic.logistic_server.models.dtos.CarTypeDto;
-import kz.logistic.logistic_server.models.entities.Car;
 import kz.logistic.logistic_server.models.entities.CarType;
-import kz.logistic.logistic_server.models.mappers.CarMapper;
 import kz.logistic.logistic_server.models.mappers.CarTypeMapper;
-import kz.logistic.logistic_server.services.CarService;
 import kz.logistic.logistic_server.services.CarTypeService;
 import kz.logistic.logistic_server.shared.utils.responses.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @project logistic_server
  */
 @RestController
-@RequestMapping("/api/cartypes")
+@RequestMapping("/api/car/types")
 public class CarTypeController extends BaseController{
 
      private CarTypeMapper carTypeMapper;

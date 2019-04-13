@@ -39,12 +39,4 @@ public class RoleController extends BaseController{
           return buildResponse(roleMapper.toDto(roleService.findById(id)), HttpStatus.OK);
      }
 
-     @PostMapping
-     public ResponseEntity<?> add(@RequestBody RoleDto roleDto) throws ServiceException{
-          Role role = roleService.save(roleMapper.toEntity(roleDto));
-          return buildResponse(roleMapper.toDto(role),HttpStatus.OK);
-     }
-
-
-
 }

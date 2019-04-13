@@ -21,6 +21,8 @@ public class UserDto extends BaseDto {
 
     private String phoneNumber;
 
+    private String login;
+
     private String password;
 
     private RoleDto role;

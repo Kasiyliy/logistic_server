@@ -12,23 +12,45 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class CarMapper extends AbstractModelMapper<Car,CarDto> {
+public class CarMapper extends AbstractModelMapper<Car, CarDto> {
 
     private ModelMapper modelMapper;
+    private UserMapper userMapper;
+    private CarTypeMapper carTypeMapper;
 
     @Autowired
-    public CarMapper(ModelMapper modelMapper) {
+    public CarMapper(ModelMapper modelMapper,
+                     UserMapper userMapper,
+                     CarTypeMapper carTypeMapper) {
         this.modelMapper = modelMapper;
+        this.userMapper = userMapper;
+        this.carTypeMapper = carTypeMapper;
     }
 
     @Override
     public CarDto toDto(Car car) {
-        return modelMapper.map(car, CarDto.class);
+        CarDto carDto = modelMapper.map(car, CarDto.class);
+        if (car.getUser() != null) {
+            carDto.setUser(userMapper.toDto(car.getUser()));
+        }
+
+        if (car.getCarType() != null) {
+            carDto.setCarType(carTypeMapper.toDto(car.getCarType()));
+        }
+        return carDto;
     }
 
     @Override
     public Car toEntity(CarDto carDto) {
-        return modelMapper.map(carDto, Car.class);
+        Car car = modelMapper.map(carDto, Car.class);
+        if (carDto.getUser() != null) {
+            car.setUser(userMapper.toEntity(carDto.getUser()));
+        }
+
+        if (carDto.getCarType() != null) {
+            car.setCarType(carTypeMapper.toEntity(carDto.getCarType()));
+        }
+        return car;
     }
 
     @Override
@@ -40,7 +62,7 @@ public class CarMapper extends AbstractModelMapper<Car,CarDto> {
 
     @Override
     public List<Car> toEntityList(List<CarDto> carDtos) {
-        return  carDtos.stream()
+        return carDtos.stream()
                 .map(this::toEntity)
                 .collect(Collectors.toList());
     }

@@ -1,7 +1,6 @@
 package kz.logistic.logistic_server.models.dtos;
 
 import kz.logistic.logistic_server.models.dtos.base.BaseDto;
-import kz.logistic.logistic_server.models.entities.CarType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +15,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class CarDto extends BaseDto {
-
-    private String plateNumber;
-    private String name;
-    private UserDto user;
-    private CarTypeDto carType;
-    private CompanyDto company;
+public class OrderDto extends BaseDto {
+    private int price;
+    private UserDto driver;
+    private UserDto client;
+    private String description;
+    private boolean completedByClient;
+    private boolean completedByDriver;
+    private String fromLocation;
+    private String toLocation;
 
 }

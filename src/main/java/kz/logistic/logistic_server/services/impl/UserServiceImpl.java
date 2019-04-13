@@ -5,12 +5,21 @@ import kz.logistic.logistic_server.models.entities.User;
 import kz.logistic.logistic_server.repositories.UserRepository;
 import kz.logistic.logistic_server.services.UserService;
 import kz.logistic.logistic_server.shared.utils.codes.ErrorCode;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 /**
  * @author Assylkhan
@@ -21,10 +30,19 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private SessionFactory hibernateFactory;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           EntityManagerFactory factory,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        if (factory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        this.hibernateFactory = factory.unwrap(SessionFactory.class);
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -65,6 +83,7 @@ public class UserServiceImpl implements UserService {
                     .message("user already exists")
                     .build();
         }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return  userRepository.save(user);
     }
 
@@ -93,4 +112,43 @@ public class UserServiceImpl implements UserService {
         user.setDeletedAt(new Date());
         userRepository.save(user);
     }
+
+    @Override
+    public User findByLogin(String login) {
+        Session session = hibernateFactory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
+
+        Predicate predicate1 = criteriaBuilder.isNull(root.get("deletedAt"));
+        Predicate predicate2 = criteriaBuilder.equal(root.get("login"), login);
+        Predicate andPredicate = criteriaBuilder.and(predicate1, predicate2);
+
+        criteriaQuery.where(andPredicate);
+        User user;
+        try {
+            user = session.createQuery(criteriaQuery).getSingleResult();
+        } catch (Exception e) {
+            user = null;
+        }
+        session.close();
+        return user;
+    }
+
+    @Override
+    public Set getAuthority(User user) {
+        Set authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        return authorities;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = findByLogin(login);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
+    }
+
 }

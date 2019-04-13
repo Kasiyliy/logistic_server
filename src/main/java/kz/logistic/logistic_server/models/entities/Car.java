@@ -21,15 +21,16 @@ public class Car extends AuditModel {
     @NotNull(message = "plate_number is required")
     private String plateNumber;
 
-    @NotNull(message = "car_type_id is required")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "car_type_id" , referencedColumnName = "id")
+    @NotNull(message = "car_type_id is required")
     private CarType carType;
 
     @OneToOne
+    @JoinColumn(name = "user_id" , referencedColumnName = "id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "company_id" , referencedColumnName = "id")
     private Company company;
 
