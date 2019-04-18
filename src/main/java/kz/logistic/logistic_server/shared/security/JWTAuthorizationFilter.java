@@ -1,8 +1,11 @@
 package kz.logistic.logistic_server.shared.security;
 
 import io.jsonwebtoken.Jwts;
+import kz.logistic.logistic_server.models.entities.User;
+import kz.logistic.logistic_server.services.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -12,14 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static kz.logistic.logistic_server.shared.security.SecurityConstants.*;
 
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    private UserService userService;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager,
+                                  UserService userService) {
         super(authManager);
+        this.userService = userService;
     }
 
     @Override
@@ -45,7 +53,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .getBody()
                     .getSubject();
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                User currentUser = userService.findByLogin(user);
+                return new UsernamePasswordAuthenticationToken(user, null,
+                        Collections.singletonList(new SimpleGrantedAuthority(currentUser.getRole().getName())));
             }
             return null;
         }

@@ -6,11 +6,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 
+import kz.logistic.logistic_server.services.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -20,16 +22,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import static kz.logistic.logistic_server.shared.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
     private AuthenticationManager authenticationManager;
+    private UserService userService;
 
-
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   UserService userService) {
         this.authenticationManager = authenticationManager;
+        this.userService = userService;
     }
 
     @Override
@@ -38,11 +44,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             kz.logistic.logistic_server.models.entities.User creds = new ObjectMapper()
                     .readValue(req.getInputStream(), kz.logistic.logistic_server.models.entities.User.class);
+            kz.logistic.logistic_server.models.entities.User user = userService.findByLogin(creds.getLogin());
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getLogin(),
                             creds.getPassword(),
-                            new ArrayList<>())
+                            Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName())))
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
