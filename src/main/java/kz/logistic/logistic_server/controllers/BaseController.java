@@ -12,6 +12,10 @@ public class BaseController {
         return new ResponseEntity<>(data , httpStatus);
     }
 
+    protected ResponseEntity<?> buildResponse(HttpStatus httpStatus){
+        return new ResponseEntity<>(httpStatus);
+    }
+
     protected ErrorResponse buildErrorResponse(ServiceException serviceException){
         return ErrorResponse.builder()
                 .code(serviceException.getErrorCode())
