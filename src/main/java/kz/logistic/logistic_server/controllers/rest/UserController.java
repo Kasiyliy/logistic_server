@@ -12,6 +12,7 @@ import kz.logistic.logistic_server.shared.utils.responses.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -50,9 +51,9 @@ public class UserController extends BaseController {
     @PostMapping("/validate")
     public ResponseEntity<?> validate(@RequestParam String login) throws ServiceException {
         User user = userService.findByLogin(login);
-        if(user!=null){
-            throw  ServiceException.builder().message("Login exists").errorCode(ErrorCode.ALREADY_EXISTS).build();
-        }else{
+        if (user != null) {
+            throw ServiceException.builder().message("Login exists").errorCode(ErrorCode.ALREADY_EXISTS).build();
+        } else {
             return buildResponse(SuccessResponse.builder().message("OK").build(), HttpStatus.OK);
         }
 
@@ -76,6 +77,16 @@ public class UserController extends BaseController {
         User user = userService.update(userMapper.toEntity(userDto));
         return buildResponse(SuccessResponse.builder()
                 .message("updated")
+                .data(userMapper.toDto(user))
+                .build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/current")
+    public ResponseEntity<?> getCurrentUser(Authentication authentication) throws ServiceException {
+        String login = authentication.getName();
+        User user = userService.findByLogin(login);
+        return buildResponse(SuccessResponse.builder()
+                .message("found")
                 .data(userMapper.toDto(user))
                 .build(), HttpStatus.OK);
     }
