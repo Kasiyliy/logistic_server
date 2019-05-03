@@ -48,6 +48,16 @@ public class UserController extends BaseController {
         return buildResponse(userMapper.toDto(user), HttpStatus.OK);
     }
 
+    @PostMapping("/company/driver")
+    public ResponseEntity<?> addByCompanyDriver(@RequestBody UserDto userDto) throws ServiceException {
+        User user = userMapper.toEntity(userDto);
+        Role role = new Role();
+        role.setId(Role.ROLE_DRIVER_ID);
+        user.setRole(role);
+        user = userService.save(user);
+        return buildResponse(userMapper.toDto(user), HttpStatus.OK);
+    }
+
     @PostMapping("/validate")
     public ResponseEntity<?> validate(@RequestParam String login) throws ServiceException {
         User user = userService.findByLogin(login);

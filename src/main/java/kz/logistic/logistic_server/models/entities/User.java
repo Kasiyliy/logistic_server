@@ -44,4 +44,20 @@ public class User extends AuditModel {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Role role;
 
+    public boolean isAdmin(){
+        return ( this.getRole()!=null && this.getRole().getName().equals(Role.ROLE_ADMIN_NAME));
+    }
+
+    public boolean isClient(){
+        return ( this.getRole()!=null && this.getRole().getName().equals(Role.ROLE_CLIENT_NAME));
+    }
+
+    public boolean isDriver(){
+        return ( this.getRole()!=null && this.getRole().getName().equals(Role.ROLE_DRIVER_NAME));
+    }
+
+    public boolean isManager(){
+        return ( this.getRole()!=null && this.getRole().getName().equals(Role.ROLE_MANAGER_NAME));
+    }
+
 }

@@ -1,6 +1,7 @@
 package kz.logistic.logistic_server.services.impl;
 
 import kz.logistic.logistic_server.exceptions.ServiceException;
+import kz.logistic.logistic_server.models.entities.Company;
 import kz.logistic.logistic_server.models.entities.Item;
 import kz.logistic.logistic_server.repositories.ItemRepository;
 import kz.logistic.logistic_server.services.ItemService;
@@ -40,6 +41,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> findAllWithDeleted() {
         return itemRepository.findAll();
+    }
+
+    @Override
+    public List<Item> findAllByCompany(Company company) {
+        return itemRepository.findAllByCompanyAndDeletedAtIsNull(company);
     }
 
     @Override

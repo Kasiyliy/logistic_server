@@ -10,4 +10,5 @@ public class SecurityConstants {
     public static final String SIGN_UP_VALIDATE_URL = "/api/users/validate";
     public static final String LOGIN_URL = "/login";
     public static final String SOCKET_URL = "/socket/**";
+    public static final String SWAGGER_URL = "/swagger-ui.html";
 }

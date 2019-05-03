@@ -96,4 +96,9 @@ public class CompanyServiceImpl implements CompanyService {
         company.setDeletedAt(new Date());
         companyRepository.save(company);
     }
+
+    @Override
+    public Company getCompanyByUser(User user) throws ServiceException {
+        return companyRepository.findCompanyByUserAndDeletedAtIsNull(user);
+    }
 }

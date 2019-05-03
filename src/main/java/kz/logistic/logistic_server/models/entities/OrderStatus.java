@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order_statuses")
+@Table(name = "orders_statuses")
 public class OrderStatus extends AuditModel {
 
     @Column(name = "name")
