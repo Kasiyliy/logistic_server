@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class CarDto extends BaseDto {
 
     private String plateNumber;
-    private String name;
     private UserDto user;
     private CarTypeDto carType;
     private CompanyDto company;
