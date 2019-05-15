@@ -47,6 +47,11 @@ public class CompanyController extends BaseController{
           return buildResponse(companyMapper.toDtoList(companyService.findAll()), HttpStatus.OK);
      }
 
+     @GetMapping("all")
+     public ResponseEntity<?> index() throws ServiceException{
+          return buildResponse(companyMapper.toDtoList(companyService.findAll()), HttpStatus.OK);
+     }
+
      @PostMapping
      public ResponseEntity<?> add(@RequestBody CompanyDto companyDto, Authentication authentication) throws ServiceException{
           String login = authentication.getName();
