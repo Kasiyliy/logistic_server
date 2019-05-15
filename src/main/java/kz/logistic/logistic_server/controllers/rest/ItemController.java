@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/items")
@@ -41,6 +41,11 @@ public class ItemController extends BaseController {
     public ResponseEntity<?> getByCompany(@PathVariable Long companyId) throws ServiceException{
         Company company = companyService.findById(companyId);
         return buildResponse(itemMapper.toDtoList(itemService.findAllByCompany(company)), HttpStatus.OK);
+    }
+
+    @GetMapping("/company")
+    public ResponseEntity<?> getByCompany(@RequestParam List<Long> ids) throws ServiceException{
+        return buildResponse(itemMapper.toDtoList(itemService.findAllByCompanyIdIn(ids)), HttpStatus.OK);
     }
 
     @PostMapping

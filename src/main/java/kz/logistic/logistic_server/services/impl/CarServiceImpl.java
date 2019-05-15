@@ -3,6 +3,7 @@ package kz.logistic.logistic_server.services.impl;
 import kz.logistic.logistic_server.exceptions.ServiceException;
 import kz.logistic.logistic_server.models.entities.Car;
 import kz.logistic.logistic_server.models.entities.Company;
+import kz.logistic.logistic_server.models.entities.User;
 import kz.logistic.logistic_server.repositories.CarRepository;
 import kz.logistic.logistic_server.services.CarService;
 import kz.logistic.logistic_server.shared.utils.codes.ErrorCode;
@@ -92,7 +93,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> findCarsByCompany(Company company) throws ServiceException {
-        return carRepository.findAllByCompanyAndDeletedAtIsNull(company);
+    public List<Car> findCarsByCompany(Long cId) throws ServiceException {
+        return carRepository.findAllByCompanyIdAndDeletedAtIsNull(cId);
+    }
+
+    @Override
+    public List<Car> findCarsByUser(Long  uId) throws ServiceException {
+        return carRepository.findAllByUserIdAndDeletedAtIsNull(uId);
     }
 }

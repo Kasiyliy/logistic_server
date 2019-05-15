@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController extends BaseController {
 
+
     private UserService userService;
     private UserMapper userMapper;
-
     @Autowired
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
@@ -31,6 +31,16 @@ public class UserController extends BaseController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         return buildResponse(userMapper.toDtoList(userService.findAll()), HttpStatus.OK);
+    }
+
+    @GetMapping("/drivers")
+    public ResponseEntity<?> getAllDrivers() {
+        return buildResponse(userMapper.toDtoList(userService.findAllDrivers()), HttpStatus.OK);
+    }
+
+    @GetMapping("/drivers/{companyId}")
+    public ResponseEntity<?> getAllDrivers(@PathVariable Long companyId) {
+        return buildResponse(userMapper.toDtoList(userService.findAllDriversByCompany(companyId)), HttpStatus.OK);
     }
 
     @GetMapping("{id}")

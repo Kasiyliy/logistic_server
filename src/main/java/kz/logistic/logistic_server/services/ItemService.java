@@ -12,6 +12,7 @@ public interface ItemService {
     Item findById(Long id) throws ServiceException;
     List<Item> findAll();
     List<Item> findAllByCompany(Company company);
+    List<Item> findAllByCompanyIdIn(List<Long> ids);
     List<Item> findAllWithDeleted();
     Item update(Item item) throws ServiceException ;
     Item save(Item item) throws ServiceException ;

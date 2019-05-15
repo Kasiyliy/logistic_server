@@ -12,5 +12,6 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car,Long> {
 
     List<Car> findAllByDeletedAtIsNull();
-    List<Car> findAllByCompanyAndDeletedAtIsNull(Company company);
+    List<Car> findAllByCompanyIdAndDeletedAtIsNull(Long id);
+    List<Car> findAllByUserIdAndDeletedAtIsNull(Long id);
 }

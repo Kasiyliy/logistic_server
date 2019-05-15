@@ -95,4 +95,9 @@ public class ItemServiceImpl implements ItemService {
         item.setDeletedAt(new Date());
         itemRepository.save(item);
     }
+
+    @Override
+    public List<Item> findAllByCompanyIdIn(List<Long> ids) {
+        return this.itemRepository.findAllByCompanyIdInAndDeletedAtIsNull(ids);
+    }
 }

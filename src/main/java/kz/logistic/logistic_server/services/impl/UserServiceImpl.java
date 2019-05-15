@@ -1,6 +1,7 @@
 package kz.logistic.logistic_server.services.impl;
 
 import kz.logistic.logistic_server.exceptions.ServiceException;
+import kz.logistic.logistic_server.models.entities.Role;
 import kz.logistic.logistic_server.models.entities.User;
 import kz.logistic.logistic_server.repositories.UserRepository;
 import kz.logistic.logistic_server.services.UserService;
@@ -151,4 +152,14 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthority(user));
     }
 
+    @Override
+    public List<User> findAllDrivers() {
+        return userRepository.findAllByDeletedAtIsNullAndRoleId(Role.ROLE_DRIVER_ID);
+    }
+
+    @Override
+    public List<User> findAllDriversByCompany(Long cId) {
+        List<Long> ids = userRepository.findAllByDeletedAtIsNullAndRoleIdAndCompanyId(cId);
+        return userRepository.findAllByIdIn(ids);
+    }
 }

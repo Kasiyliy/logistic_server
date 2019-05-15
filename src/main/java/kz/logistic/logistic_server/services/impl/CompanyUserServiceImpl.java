@@ -101,4 +101,9 @@ public class CompanyUserServiceImpl implements CompanyUserService {
     public CompanyUser findByCompanyAndUser(Company company, User user) {
         return companyUserRepository.findByCompanyAndUserAndDeletedAtIsNull(company, user);
     }
+
+    @Override
+    public List<CompanyUser> findAllCompanyUserByUser(Long userId) {
+        return companyUserRepository.findAllByUserIdAndDeletedAtIsNull(userId);
+    }
 }

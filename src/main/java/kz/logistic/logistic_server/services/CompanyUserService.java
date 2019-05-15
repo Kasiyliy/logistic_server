@@ -19,4 +19,6 @@ public interface CompanyUserService {
     void deleteById(Long id) throws ServiceException ;
     List<CompanyUser> findAllByCompany(Company company);
     CompanyUser findByCompanyAndUser(Company company, User user);
+    List<CompanyUser> findAllCompanyUserByUser(Long userId);
+
 }

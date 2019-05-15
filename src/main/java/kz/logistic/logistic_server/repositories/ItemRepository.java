@@ -12,5 +12,5 @@ public interface ItemRepository extends JpaRepository<Item,Long> {
 
     List<Item> findAllByDeletedAtIsNull();
     List<Item> findAllByCompanyAndDeletedAtIsNull(Company company);
-
+    List<Item> findAllByCompanyIdInAndDeletedAtIsNull(List<Long> ids);
 }
