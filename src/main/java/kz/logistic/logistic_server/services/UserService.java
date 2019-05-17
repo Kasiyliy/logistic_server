@@ -12,6 +12,8 @@ public interface UserService extends UserDetailsService {
     User findById(Long id) throws ServiceException;
     List<User> findAll();
     List<User> findAllDrivers();
+    List<User> findAllClients();
+    List<User> findAllManagers();
     List<User> findAllDriversByCompany(Long cId);
     List<User> findAllWithDeleted();
     User update(User user) throws ServiceException ;

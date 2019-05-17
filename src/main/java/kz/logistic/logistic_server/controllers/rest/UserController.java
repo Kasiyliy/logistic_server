@@ -43,6 +43,16 @@ public class UserController extends BaseController {
         return buildResponse(userMapper.toDtoList(userService.findAllDriversByCompany(companyId)), HttpStatus.OK);
     }
 
+    @GetMapping("/clients")
+    public ResponseEntity<?> getAllClients() {
+        return buildResponse(userMapper.toDtoList(userService.findAllClients()), HttpStatus.OK);
+    }
+
+    @GetMapping("/managers")
+    public ResponseEntity<?> getAllManagers() {
+        return buildResponse(userMapper.toDtoList(userService.findAllManagers()), HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) throws ServiceException {
         return buildResponse(userMapper.toDto(userService.findById(id)), HttpStatus.OK);

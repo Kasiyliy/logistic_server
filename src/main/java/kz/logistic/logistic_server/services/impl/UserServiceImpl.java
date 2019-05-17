@@ -158,6 +158,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllClients() {
+        return userRepository.findAllByDeletedAtIsNullAndRoleId(Role.ROLE_CLIENT_ID);
+    }
+
+    @Override
+    public List<User> findAllManagers() {
+        return userRepository.findAllByDeletedAtIsNullAndRoleId(Role.ROLE_MANAGER_ID);
+    }
+
+    @Override
     public List<User> findAllDriversByCompany(Long cId) {
         List<Long> ids = userRepository.findAllByDeletedAtIsNullAndRoleIdAndCompanyId(cId);
         return userRepository.findAllByIdIn(ids);
