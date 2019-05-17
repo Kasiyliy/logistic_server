@@ -103,7 +103,7 @@ public class CompanyUserServiceImpl implements CompanyUserService {
     }
 
     @Override
-    public List<CompanyUser> findAllCompanyUserByUser(Long userId) {
+    public List<CompanyUser> findAllCompanyUserByUserForDriver(Long userId) {
         return companyUserRepository.findAllByUserIdAndDeletedAtIsNull(userId);
     }
 }

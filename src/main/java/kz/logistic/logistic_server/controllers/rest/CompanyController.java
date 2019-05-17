@@ -46,9 +46,9 @@ public class CompanyController extends BaseController {
         User user = userService.findByLogin(login);
         ArrayList companies = new ArrayList<>();
         if (user.isDriver()) {
-            companies.add(companyService.getCompanyByUser(user));
+            companies.addAll(companyUserService.findAllCompanyUserByUserForDriver(user.getId()).stream().map(companyUser -> companyUser.getCompany()).collect(Collectors.toList()));
         } else if (user.isManager()) {
-            companies.addAll(companyUserService.findAllCompanyUserByUser(user.getId()).stream().map(companyUser -> companyUser.getCompany()).collect(Collectors.toList()));
+            companies.add(companyService.getCompanyByUser(user));
         } else {
             companies.addAll(companyService.findAll());
         }
