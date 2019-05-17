@@ -1,5 +1,6 @@
 package kz.logistic.logistic_server.controllers.rest;
 
+import io.swagger.annotations.ApiOperation;
 import kz.logistic.logistic_server.controllers.BaseController;
 import kz.logistic.logistic_server.exceptions.ServiceException;
 import kz.logistic.logistic_server.models.dtos.CompanyDto;
@@ -71,7 +72,11 @@ public class CompanyController extends BaseController {
         return buildResponse(companyMapper.toDto(company), HttpStatus.OK);
     }
 
-
+    @GetMapping("{id}")
+    @ApiOperation("get by id")
+    public ResponseEntity<?> getOne(@PathVariable Long id) throws ServiceException{
+        return buildResponse(companyMapper.toDto(companyService.findById(id)), HttpStatus.OK);
+    }
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException {
         companyService.deleteById(id);

@@ -68,8 +68,8 @@ public class UserController extends BaseController {
         return buildResponse(userMapper.toDto(user), HttpStatus.OK);
     }
 
-    @PostMapping("/company/driver")
-    public ResponseEntity<?> addByCompanyDriver(@RequestBody UserDto userDto) throws ServiceException {
+    @PostMapping("/add/driver")
+    public ResponseEntity<?> addDriver(@RequestBody UserDto userDto) throws ServiceException {
         User user = userMapper.toEntity(userDto);
         Role role = new Role();
         role.setId(Role.ROLE_DRIVER_ID);
