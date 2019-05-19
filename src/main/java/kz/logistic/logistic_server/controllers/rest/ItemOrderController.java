@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 
 @RestController
@@ -37,6 +38,11 @@ public class ItemOrderController extends BaseController{
           return buildResponse(itemOrderMapper.toDto(itemOrder),HttpStatus.OK);
      }
 
+     @PostMapping("/all")
+     public ResponseEntity<?> addAll(@RequestBody List<ItemOrderDto> itemOrderDtos) throws ServiceException{
+          List<ItemOrder> itemOrders = itemOrderService.saveAll(itemOrderMapper.toEntityList(itemOrderDtos));
+          return buildResponse(itemOrderMapper.toDtoList(itemOrders),HttpStatus.OK);
+     }
 
      @DeleteMapping("{id}")
      public ResponseEntity<?> delete(@PathVariable Long id) throws ServiceException{

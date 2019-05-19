@@ -30,6 +30,21 @@ public class OrderController extends BaseController{
           return buildResponse(orderMapper.toDtoList(orderService.findAll()), HttpStatus.OK);
      }
 
+     @GetMapping("{id}/company")
+     public ResponseEntity<?> getAllByCompanyId(@PathVariable Long id){
+          return buildResponse(orderMapper.toDtoList(orderService.findAllWithDeletedByCompanyId(id)), HttpStatus.OK);
+     }
+
+     @GetMapping("{id}/driver")
+     public ResponseEntity<?> getAllByDriverId(@PathVariable Long id){
+          return buildResponse(orderMapper.toDtoList(orderService.findAllWithDeletedByDriverId(id)), HttpStatus.OK);
+     }
+
+     @GetMapping("{id}/client")
+     public ResponseEntity<?> getAllByClientId(@PathVariable Long id){
+          return buildResponse(orderMapper.toDtoList(orderService.findAllWithDeletedByClientId(id)), HttpStatus.OK);
+     }
+
      @GetMapping("{id}")
      public ResponseEntity<?> getOne(@PathVariable Long id) throws ServiceException{
           return buildResponse(orderMapper.toDto(orderService.findById(id)), HttpStatus.OK);

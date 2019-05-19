@@ -89,4 +89,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         itemOrder.setDeletedAt(new Date());
         itemOrderRepository.save(itemOrder);
     }
+
+    @Override
+    public List<ItemOrder> saveAll(List<ItemOrder> itemOrders) throws ServiceException {
+        return this.itemOrderRepository.saveAll(itemOrders);
+    }
 }

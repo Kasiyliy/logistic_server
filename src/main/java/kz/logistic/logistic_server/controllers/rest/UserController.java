@@ -22,6 +22,7 @@ public class UserController extends BaseController {
 
     private UserService userService;
     private UserMapper userMapper;
+
     @Autowired
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
@@ -102,13 +103,18 @@ public class UserController extends BaseController {
         return buildResponse(SuccessResponse.builder().message("deleted").build(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = {RequestMethod.PATCH, RequestMethod.PUT})
-    public ResponseEntity<?> update(@RequestBody UserDto userDto) throws ServiceException {
-        User user = userService.update(userMapper.toEntity(userDto));
-        return buildResponse(SuccessResponse.builder()
-                .message("updated")
-                .data(userMapper.toDto(user))
-                .build(), HttpStatus.OK);
+    @RequestMapping(path = "{id}" , method = {RequestMethod.PATCH, RequestMethod.PUT})
+    public ResponseEntity<?> update(@RequestBody UserDto userDto, @PathVariable Long id) throws ServiceException {
+        if(userDto.getId().equals(id)){
+            User user = userService.update(userMapper.toEntity(userDto));
+            return buildResponse(SuccessResponse.builder()
+                    .message("updated")
+                    .data(userMapper.toDto(user))
+                    .build(), HttpStatus.OK);
+        }else{
+            return buildResponse(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("/current")

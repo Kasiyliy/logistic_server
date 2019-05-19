@@ -20,5 +20,6 @@ public class OrderDto extends BaseDto {
     private boolean completedByDriver;
     private String fromLocation;
     private String toLocation;
+    private CompanyDto company;
 
 }

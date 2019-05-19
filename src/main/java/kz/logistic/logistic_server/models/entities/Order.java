@@ -44,4 +44,14 @@ public class Order extends AuditModel{
     @Column(name = "to_location")
     @NotNull(message = "to_location is required")
     private String toLocation;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    @NotNull(message = "company is required")
+    private Company company;
+
+    @ManyToOne
+    @JoinColumn(name = "orders_status_id")
+    @NotNull(message = "status is required")
+    private OrderStatus status;
 }

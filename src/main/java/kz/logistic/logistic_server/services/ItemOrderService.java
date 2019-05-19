@@ -13,6 +13,7 @@ public interface ItemOrderService {
     List<ItemOrder> findAllWithDeleted();
     ItemOrder update(ItemOrder itemOrder) throws ServiceException ;
     ItemOrder save(ItemOrder itemOrder) throws ServiceException ;
+    List<ItemOrder> saveAll(List<ItemOrder> itemOrders) throws ServiceException ;
     void delete(ItemOrder itemOrder) throws ServiceException ;
     void deleteById(Long id) throws ServiceException ;
 

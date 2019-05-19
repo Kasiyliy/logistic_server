@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>{
     List<Order> findAllByDeletedAtIsNull();
+    List<Order> findAllByDeletedAtIsNullAndClientId(Long clientId);
+    List<Order> findAllByDeletedAtIsNullAndDriverId(Long driverId);
+    List<Order> findAllByDeletedAtIsNullAndCompanyId(Long companyId);
 }

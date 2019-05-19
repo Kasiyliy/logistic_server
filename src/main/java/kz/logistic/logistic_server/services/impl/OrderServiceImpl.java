@@ -93,4 +93,19 @@ public class OrderServiceImpl implements OrderService {
         order.setDeletedAt(new Date());
         orderRepository.save(order);
     }
+
+    @Override
+    public List<Order> findAllWithDeletedByCompanyId(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndCompanyId(id);
+    }
+
+    @Override
+    public List<Order> findAllWithDeletedByClientId(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndClientId(id);
+    }
+
+    @Override
+    public List<Order> findAllWithDeletedByDriverId(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndDriverId(id);
+    }
 }
