@@ -21,5 +21,6 @@ public class OrderDto extends BaseDto {
     private String fromLocation;
     private String toLocation;
     private CompanyDto company;
+    private OrderStatusDto status;
 
 }
