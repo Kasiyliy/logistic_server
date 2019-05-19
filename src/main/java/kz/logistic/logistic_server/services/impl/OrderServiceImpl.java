@@ -108,4 +108,19 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllWithDeletedByDriverId(Long id) {
         return orderRepository.findAllByDeletedAtIsNullAndDriverId(id);
     }
+
+    @Override
+    public List<Order> findAllWithDeletedByCompanyIdHistory(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndCompanyIdHistory(id);
+    }
+
+    @Override
+    public List<Order> findAllWithDeletedByClientIdHistory(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndClientIdHistory(id);
+    }
+
+    @Override
+    public List<Order> findAllWithDeletedByDriverIdHistory(Long id) {
+        return orderRepository.findAllByDeletedAtIsNullAndDriverIdHistory(id);
+    }
 }

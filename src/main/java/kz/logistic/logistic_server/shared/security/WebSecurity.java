@@ -40,6 +40,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(LOGIN_URL).permitAll()
                 .antMatchers(HttpMethod.GET, IMAGE_URL).permitAll()
                 .antMatchers(SWAGGER_URL).permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/index.html").permitAll()
 //                .antMatchers(HttpMethod.GET, "**").permitAll()
                 .anyRequest().authenticated()
                 .and()

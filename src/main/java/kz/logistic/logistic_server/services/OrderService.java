@@ -15,6 +15,11 @@ public interface OrderService {
     List<Order> findAllWithDeletedByCompanyId(Long id);
     List<Order> findAllWithDeletedByClientId(Long id);
     List<Order> findAllWithDeletedByDriverId(Long id);
+
+    List<Order> findAllWithDeletedByCompanyIdHistory(Long id);
+    List<Order> findAllWithDeletedByClientIdHistory(Long id);
+    List<Order> findAllWithDeletedByDriverIdHistory(Long id);
+
     Order update(Order order) throws ServiceException ;
     Order save(Order order) throws ServiceException ;
     void delete(Order order) throws ServiceException ;
