@@ -96,4 +96,10 @@ public class OrderLogServiceImpl implements OrderLogService {
         orderLog.setDeletedAt(new Date());
         orderLogRepository.save(orderLog);
     }
+
+    @Override
+    public OrderLog findByLastByOrderId(Long id) throws ServiceException {
+        Long orderLogId = orderLogRepository.getLastByOrderId(id);
+        return orderLogId != null ? orderLogRepository.getOne(orderLogId) : null;
+    }
 }

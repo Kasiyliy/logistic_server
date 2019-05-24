@@ -35,6 +35,11 @@ public class OrderLogController extends BaseController{
           return buildResponse(orderLogMapper.toDto(orderLogService.findById(id)), HttpStatus.OK);
      }
 
+     @GetMapping("orders/{id}")
+     public ResponseEntity<?> findLastByOrder(@PathVariable Long id) throws ServiceException{
+          return buildResponse(orderLogMapper.toDto(orderLogService.findByLastByOrderId(id)), HttpStatus.OK);
+     }
+
      @PostMapping
      public ResponseEntity<?> add(@RequestBody OrderLogDto orderLogDto) throws ServiceException{
           OrderLog orderLog = orderLogService.save(orderLogMapper.toEntity(orderLogDto));

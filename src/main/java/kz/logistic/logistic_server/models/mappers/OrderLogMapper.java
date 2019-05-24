@@ -29,7 +29,7 @@ public class OrderLogMapper extends AbstractModelMapper<OrderLog, OrderLogDto> {
         OrderLogDto orderLogDto = modelMapper.map(orderLog, OrderLogDto.class);
 
         if (orderLog.getOrder() != null) {
-            orderLogDto.setOrderDto(orderMapper.toDto(orderLog.getOrder()));
+            orderLogDto.setOrder(orderMapper.toDto(orderLog.getOrder()));
         }
 
         return orderLogDto;
@@ -39,8 +39,8 @@ public class OrderLogMapper extends AbstractModelMapper<OrderLog, OrderLogDto> {
     public OrderLog toEntity(OrderLogDto orderLogDto) {
         OrderLog orderLog = modelMapper.map(orderLogDto, OrderLog.class);
 
-        if (orderLogDto.getOrderDto() != null) {
-            orderLog.setOrder(orderMapper.toEntity(orderLogDto.getOrderDto()));
+        if (orderLogDto.getOrder() != null) {
+            orderLog.setOrder(orderMapper.toEntity(orderLogDto.getOrder()));
         }
 
         return orderLog;

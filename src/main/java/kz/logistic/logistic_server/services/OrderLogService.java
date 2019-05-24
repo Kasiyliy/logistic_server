@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderLogService {
 
     OrderLog findById(Long id) throws ServiceException;
+    OrderLog findByLastByOrderId(Long id) throws ServiceException;
     List<OrderLog> findAll();
     List<OrderLog> findAllWithDeleted();
     OrderLog update(OrderLog orderLog) throws ServiceException ;
