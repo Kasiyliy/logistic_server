@@ -28,7 +28,6 @@ public class CarTypeController extends BaseController{
           this.carTypeService = carTypeService;
      }
 
-     
      @GetMapping
      @ApiOperation("get all")
      public ResponseEntity<?> getAll() throws ServiceException{
